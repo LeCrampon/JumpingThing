@@ -25,7 +25,36 @@ public class GroundChecker : MonoBehaviour
     [SerializeField]
     public Vector3 _groundedDirection = Vector3.down;
     [SerializeField]
+    public Vector3 _previousGroundedDirection = Vector3.down;
+    [SerializeField]
     public Vector3 _nextGroundedDirection = Vector3.down;
+
+    [Header("TESTINg SOMETHING")]
+    [SerializeField]
+    private Transform[] _legsTransformRaycasts;
+
+    public void SetGroundedDirection()
+    {
+        Vector3 direction = Vector3.zero;
+        foreach(Transform t in _legsTransformRaycasts)
+        {
+            Debug.Log("NAME : " + t.name);
+            Debug.DrawRay(t.position, t.up, Color.blue, 15f);
+
+            RaycastHit hit;
+            if (Physics.Raycast(t.position, t.up, out hit, 1f, _groundMask))
+            {
+                direction += -hit.normal;
+                Debug.Log("DIRECTION : " + direction.x + " " + direction.y + " " + direction.z);
+            }
+
+
+            Debug.DrawLine(t.position, t.position + _groundedDirection * 10, Color.red);
+        }
+
+        Debug.Log("NORMALISED = " + direction.normalized);
+        ChangeGroundedDirection( direction.normalized);
+    }
 
 
     public bool CheckGround()
@@ -75,9 +104,18 @@ public class GroundChecker : MonoBehaviour
         _groundedDirection = direction;
     }
 
+    public void PrepareNextGroundedDirection(Vector3 direction)
+    {
+        _previousGroundedDirection = _groundedDirection;
+        _nextGroundedDirection = direction;
+    }
+
     private void SwitchPlane(RaycastHit hit)
     {
-        ChangeGroundedDirection(-hit.normal);
+
+        PrepareNextGroundedDirection(-hit.normal);
+        //ChangeGroundedDirection(-hit.normal);
+        //SetGroundedDirection();
         _crawlingMovement.SetUpTransition(hit.point, hit.normal);
     }
 }
