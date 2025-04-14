@@ -25,10 +25,15 @@ public class CrawlingMovement : MonoBehaviour
     [SerializeField]
     private float _switchTimer;
 
+    [SerializeField]
+    private Foot_GroundCheck[] _groundChecks;
 
+    [Header("DEBUG")]
+    [SerializeField]
+    private Transform _GROUNDPOSDEBUG;
 
     //This function should handle Everything about Crawling Movement ==> To call in Update
-    public void HandleCrawlingMovement(Vector2 _moveValue)
+    public void OLD_HandleCrawlingMovement(Vector2 _moveValue)
     {
         //if (!_inPlaneTransition)
         //{
@@ -54,6 +59,29 @@ public class CrawlingMovement : MonoBehaviour
 
     }
 
+    public void HandleCrawlingMovement(Vector2 _moveValue)
+    {
+
+        Vector3 groundedDirection = Vector3.zero;
+        Vector3 groundedPosition = Vector3.zero;
+
+        foreach(Foot_GroundCheck foot in _groundChecks)
+        {
+            groundedDirection += foot.GetDestination().normal;
+            groundedPosition += foot.GetDestination().position;
+        }
+        groundedDirection = (groundedDirection/_groundChecks.Length).normalized;
+        groundedPosition = groundedPosition / _groundChecks.Length;
+        //Debug.Log("GroundedDirection " + groundedDirection);
+
+
+        _groundChecker._groundedDirection = -groundedDirection;
+        _groundChecker._groundedPos = groundedPosition;
+        _GROUNDPOSDEBUG.position = groundedPosition;
+
+        HandleMovingNEW(_moveValue, groundedDirection);
+    }
+
 
     private void HandleMoving(Vector2 moveValue)
     {
@@ -73,6 +101,33 @@ public class CrawlingMovement : MonoBehaviour
             Vector3 mouvement = (transform.forward * moveValue.y + transform.right * moveValue.x).normalized;
             transform.position += mouvement * _movementSpeed * Time.deltaTime;
         }
+    }
+
+    private void HandleMovingNEW(Vector2 moveValue, Vector3 newUp)
+    {
+        if (_characterMovement.CheckMoving() /*&& _groundChecker.CheckGround()*/)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation,CalculateNewRotation( newUp), Time.deltaTime * 7);
+            Vector3 movementOffset = (transform.forward * moveValue.y + transform.right * moveValue.x).normalized;
+            //transform.position += movementOffset * _movementSpeed * Time.deltaTime;
+            //Vector3 heightOffset = Vector3.zero;
+            //if(Vector3.Distance(transform.position, _groundChecker._groundedPos) < .1f)
+            //{
+            //    heightOffset = transform.up;
+            //}
+            //else if(Vector3.Distance(transform.position, _groundChecker._groundedPos) > .1f)
+            //{
+            //    heightOffset = -transform.up;
+            //}
+
+
+            Vector3 heightOffset = _groundChecker._groundedPos + transform.up * .15f;
+
+            transform.position = Vector3.Lerp(transform.position, heightOffset, Time.deltaTime * 7);
+
+            transform.position = Vector3.Lerp(transform.position, transform.position + movementOffset , Time.deltaTime * _movementSpeed);
+        }
+
     }
 
 

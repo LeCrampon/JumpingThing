@@ -25,25 +25,42 @@ public class Foot_IK : MonoBehaviour
     [SerializeField]
     private Transform _debugRaycastTransform;
 
+    private Foot_GroundCheck _footGroundCheck;
+
 
     private void Awake()
     {
         _currentPosition = transform.position;
         _nextPosition = transform.position;
+
+        _footGroundCheck = GetComponent<Foot_GroundCheck>();
     }
 
     public void ManageFootMovement()
     {
+        //OLD
+        //FindPointInFront();
 
-        FindPointInFront();
+        //NEW
+        SetNewPosition();
 
-        if (_isMoving)
-        {
+        //if (_isMoving)
+        //{
             UpdateLegMovement();
-        }
+        //}
 
     }
 
+
+    //new
+    private void SetNewPosition()
+    {
+        if (Vector3.Distance(_nextPosition, _footGroundCheck.GetDestination().position) > _characterIK._stepSize && !_isMoving)
+        {
+            _nextPosition = _footGroundCheck.GetDestination().position;
+            StartLegMovement();
+        }
+    }
 
     private void FindNextPoint()
     {

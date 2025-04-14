@@ -16,8 +16,7 @@ public class Foot_GroundCheck : MonoBehaviour
     [SerializeField]
     private float _rayCastDistanceBack;
 
-    [SerializeField]
-    private IK_TargetDestination _destination;
+    private IK_TargetDestination _destination = new IK_TargetDestination();
 
     [SerializeField]
     private LegFrontBack _legDirection;
@@ -30,44 +29,58 @@ public class Foot_GroundCheck : MonoBehaviour
     [SerializeField]
     private LayerMask _groundMask;
 
-    
+    [Header("DEBUG")]
+    [SerializeField]
+    private Transform _DEBUG_DESTINATION;
+
+
+
+    private void Update()
+    {
+        SetDestination();
+        _DEBUG_DESTINATION.position = _destination.position;
+    }
 
     public IK_TargetDestination GetDestination()
     {
-        IK_TargetDestination destination = new IK_TargetDestination();
+        return _destination;
+    }
 
+    public void SetDestination()
+    {
+
+        Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position + _raycastTransformDown.forward * _rayCastDistanceFront, Color.green, 1f);
+        Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position - _raycastTransformDown.up * _rayCastDistanceDown, Color.green, 1f);
+        Debug.DrawLine(_raycastTransformBack.position, _raycastTransformBack.position - _raycastTransformBack.forward * _rayCastDistanceBack, Color.green, 1f);
 
         RaycastHit hit;
         //CHECK DEVANT
         if (Physics.Raycast(_raycastTransformDown.position, _raycastTransformDown.forward, out hit, _rayCastDistanceFront, _groundMask))
         {
-            destination.SetPositionAndNormal(hit.point, hit.normal);
+            _destination.SetPositionAndNormal(hit.point, hit.normal);
+            return;
         }
-        else
+        //CheckDown
+        if (Physics.Raycast(_raycastTransformDown.position, -_raycastTransformDown.up, out hit, _rayCastDistanceDown, _groundMask))
         {
-            //CheckDown
-            if (Physics.Raycast(_raycastTransformDown.position, -_raycastTransformDown.up, out hit, _rayCastDistanceDown, _groundMask))
-            {
-                destination.SetPositionAndNormal(hit.point, hit.normal);
-            }
-            else
-            {
-                //Check Backward
-                if (Physics.Raycast(_raycastTransformBack.position, -_raycastTransformBack.forward, out hit, _rayCastDistanceBack, _groundMask))
-                {
-                    destination.SetPositionAndNormal(hit.point, hit.normal);
-                }
-            }
+            _destination.SetPositionAndNormal(hit.point, hit.normal);
+            return;
         }
 
-        Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position + _raycastTransformDown.forward * _rayCastDistanceFront, Color.green, 1f);
-        Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position + -_raycastTransformDown.up * _rayCastDistanceDown, Color.green, 1f);
-        Debug.DrawLine(_raycastTransformBack.position, _raycastTransformBack.position - -_raycastTransformBack.forward * _rayCastDistanceBack, Color.green, 1f);
+        //Check Backward
+        if (Physics.Raycast(_raycastTransformBack.position, -_raycastTransformBack.forward, out hit, _rayCastDistanceBack, _groundMask))
+        {
+            _destination.SetPositionAndNormal(hit.point, hit.normal);
+            return;
+        }
+     
 
-        _destination = destination;
-        return destination;
     }
+
+
 }
+
+
 
 public enum LegFrontBack
 {
