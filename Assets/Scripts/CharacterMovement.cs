@@ -30,6 +30,8 @@ public class CharacterMovement : MonoBehaviour
         {
             _jumpingMovement.HandleJumpingMovement(_moveValue);
         }
+
+        DEBUG_ChangeTimeScale();
     }
 
 
@@ -51,6 +53,30 @@ public class CharacterMovement : MonoBehaviour
     public void SwitchToJumpingovement()
     {
         _movementType = MovementType.JumpingMovement;
+    }
+
+    private void DEBUG_ChangeTimeScale()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            Time.timeScale += .1f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            Time.timeScale -= .1f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            Time.timeScale = 0;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            Time.timeScale = 1;
+        }
     }
 
 }

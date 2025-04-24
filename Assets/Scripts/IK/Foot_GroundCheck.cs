@@ -5,10 +5,14 @@ using UnityEngine;
 public class Foot_GroundCheck : MonoBehaviour
 {
     [SerializeField]
+    private LayerMask _groundMask;
+    [Header("Raycast References")]
+    [SerializeField]
     private Transform _raycastTransformDown;
     [SerializeField]
     private Transform _raycastTransformBack;
 
+    [Header("Raycast Distances")]
     [SerializeField]
     private float _rayCastDistanceDown;
     [SerializeField]
@@ -18,16 +22,13 @@ public class Foot_GroundCheck : MonoBehaviour
 
     private IK_TargetDestination _destination = new IK_TargetDestination();
 
+    [Header("Directions")]
     [SerializeField]
     private LegFrontBack _legDirection;
     [SerializeField]
-    private LegFrontBack _normal;
-
-    [SerializeField]
     private LegLeftRight _legSide;
 
-    [SerializeField]
-    private LayerMask _groundMask;
+
 
     [Header("DEBUG")]
     [SerializeField]
@@ -38,6 +39,11 @@ public class Foot_GroundCheck : MonoBehaviour
     private void Update()
     {
         SetDestination();
+
+    }
+
+    public void DEBUG_UpdateDebugRayCastPosition()
+    {
         _DEBUG_DESTINATION.position = _destination.position;
     }
 
@@ -73,11 +79,7 @@ public class Foot_GroundCheck : MonoBehaviour
             _destination.SetPositionAndNormal(hit.point, hit.normal);
             return;
         }
-     
-
     }
-
-
 }
 
 
