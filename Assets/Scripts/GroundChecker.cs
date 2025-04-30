@@ -29,7 +29,8 @@ public class GroundChecker : MonoBehaviour
     [SerializeField]
     private float _groundedRaycastLength;
 
-
+    [SerializeField]
+    public NiveauABulles _niveauABulles;
 
 
     public bool CheckGround()
@@ -62,4 +63,33 @@ public class GroundChecker : MonoBehaviour
         _nextGroundedDirection = direction;
     }
 
+
+    public void SetNiveauABulles()
+    {
+        float angle = Vector3.Angle(_groundedDirection, Vector3.down);
+        if (angle <= 70)
+        {
+            _niveauABulles = NiveauABulles.Ground;
+        }
+        else if(angle > 70 && angle < 120)
+        {
+            _niveauABulles = NiveauABulles.Wall;
+        }
+        else
+        {
+            _niveauABulles = NiveauABulles.UpsideDown;
+        }
+    }
+
+    private void Update()
+    {
+        SetNiveauABulles();
+    }
+}
+
+public enum NiveauABulles
+{
+    Ground,
+    Wall,
+    UpsideDown
 }

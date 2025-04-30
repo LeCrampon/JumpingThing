@@ -12,7 +12,7 @@ public class CharacterInput : MonoBehaviour
     [SerializeField]
     private Vector2 _lookValue;
     [SerializeField]
-    private FollowCamera _camera;
+    private CameraControls _camera;
 
     private void Awake()
     {

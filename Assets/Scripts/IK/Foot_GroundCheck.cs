@@ -79,6 +79,18 @@ public class Foot_GroundCheck : MonoBehaviour
             _destination.SetPositionAndNormal(hit.point, hit.normal);
             return;
         }
+
+        int frontModifier = _legDirection == LegFrontBack.Front ? 1 : -1;
+        Vector3 insideDirection = _legSide == LegLeftRight.Left ? _raycastTransformBack.right : -_raycastTransformBack.right;
+        insideDirection = (insideDirection * frontModifier).normalized ;
+
+        //Check Inside
+        if (Physics.Raycast(_raycastTransformBack.position, insideDirection, out hit, _rayCastDistanceBack, _groundMask))
+        {
+            _destination.SetPositionAndNormal(hit.point, hit.normal);
+            return;
+        }
+     
     }
 }
 
