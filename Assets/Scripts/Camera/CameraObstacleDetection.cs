@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraObstacleDetection : MonoBehaviour
 {
     [SerializeField]
+    private CharacterMovement _characterMovement;
+    [SerializeField]
     private Transform _cameraTransform;
     [SerializeField]
     private Transform _cameraTargetTransform;
@@ -29,10 +31,18 @@ public class CameraObstacleDetection : MonoBehaviour
     private float _cameraDistance;
     [SerializeField]
     private float _cameraTransitionLerp;
+    [SerializeField]
+    private float _sphereCastRadius;
 
 
 
-    private float _currentDistance;
+    public float _currentDistance;
+
+
+    [Header("DEBUG")]
+    [SerializeField]
+    private Transform D_RayCastHit;
+
 
     private void Awake()
     {
@@ -46,21 +56,25 @@ public class CameraObstacleDetection : MonoBehaviour
 
     private void LateUpdate()
     {
-        MoveCameraToMaxDistance();
-
-        switch (_groundChecker._niveauABulles)
+        if (_characterMovement._movementType == MovementType.CrawlingMovement || _characterMovement._movementType == MovementType.JumpingMovement || _characterMovement._movementType == MovementType.FlyingMovement)
         {
-            case NiveauABulles.Ground:
-                ManageGroundCamera();
-                break;
-            case NiveauABulles.Wall:
-                ManageWallCamera();
-                break;
-            case NiveauABulles.UpsideDown:
-                ManageUpsideDownCamera();
-                break;
-            default:
-                break;
+            MoveCameraToMaxDistance();
+
+            switch (_groundChecker._niveauABulles)
+            {
+                case NiveauABulles.Ground:
+                    ManageGroundCamera();
+                    break;
+                case NiveauABulles.Wall:
+                    ManageWallCamera();
+                    break;
+                case NiveauABulles.UpsideDown:
+                    ManageUpsideDownCamera();
+                    break;
+                default:
+                    ManageGroundCamera();
+                    break;
+            }
         }
     }
 
@@ -68,10 +82,15 @@ public class CameraObstacleDetection : MonoBehaviour
     {
         float distance = castDirection.magnitude + _obstacleDistanceOffset;
 
-        if (Physics.SphereCast(new Ray(transform.position, castDirection), 0.1f, out RaycastHit hit, distance, _collisionLayerMask, QueryTriggerInteraction.Ignore))
+        //Debug.DrawRay(transform.position, castDirection, Color.red, 2f);
+        if (Physics.SphereCast(new Ray(transform.position, castDirection), _sphereCastRadius, out RaycastHit hit, distance, _collisionLayerMask, QueryTriggerInteraction.Ignore))
         {
+            if(D_RayCastHit != null)
+                D_RayCastHit.position = hit.point;
             return Mathf.Max(0f, hit.distance - _obstacleDistanceOffset);
+  
         }
+        
 
         return castDirection.magnitude;
     }
@@ -83,7 +102,7 @@ public class CameraObstacleDetection : MonoBehaviour
 
         Vector3 castDirection = _cameraTargetTransform.position - transform.position;
         float distance = GetCameraDistance(castDirection);
-
+        //Debug.Log("CAMERA DISTANCE " + distance);
         _currentDistance = Mathf.Lerp(_currentDistance, distance, Time.deltaTime * _smoothFactor);
         _cameraTransform.position = transform.position + castDirection.normalized * _currentDistance;
     }

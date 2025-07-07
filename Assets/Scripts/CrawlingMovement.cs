@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CrawlingMovement : MonoBehaviour
@@ -24,6 +25,8 @@ public class CrawlingMovement : MonoBehaviour
     [SerializeField]
     private float _rotationSpeed = 7f;
 
+
+
     [Header("DEBUG")]
     [SerializeField]
     private Transform _GROUNDPOSDEBUG;
@@ -31,6 +34,12 @@ public class CrawlingMovement : MonoBehaviour
     //This function should handle Everything about Crawling Movement ==> To call in Update
     public void HandleCrawlingMovement(Vector2 _moveValue)
     {
+        //Check si on doit changer de mouvement
+        if (_characterMovement._isJumpingCreature && IsVaguelyHorizontal())
+        {
+            _characterMovement.SwitchToJumpingovement();
+        }
+
         //Get the average of leg positions and normals
         Vector3 groundedDirection = Vector3.zero;
         Vector3 groundedPosition = Vector3.zero;
@@ -66,8 +75,8 @@ public class CrawlingMovement : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, heightOffset, Time.deltaTime * _bodyHeightSpeed);
 
             transform.position = Vector3.Lerp(transform.position, transform.position + movementOffset , Time.deltaTime * _movementSpeed);
-
             _bodyIK.BobHead();
+            _bodyIK.ThoseHipsDontLie();
         }
     }
 
@@ -93,5 +102,21 @@ public class CrawlingMovement : MonoBehaviour
         Vector3 newForward = Vector3.Cross(calculatedRight, newUp).normalized;
         Quaternion targetRot = Quaternion.LookRotation(newForward, newUp);
         return targetRot;
+    }
+
+    public bool IsVaguelyHorizontal()
+    {
+        //RaycastHit hit;
+        //if(Physics.Raycast(_groundChecker._ray.position, ))
+
+        bool horizontal = false;
+        float collisionAngle = Vector3.Angle(-_groundChecker._groundedDirection, Vector3.up);
+        Debug.Log("CRAWLING COLLISION ANGLE = " + collisionAngle);
+        if (collisionAngle < 50)
+        {
+            horizontal = true;
+        }
+        //Debug.Log("Dot : " + Vector3.Dot(-_groundChecker._groundedDirection, Vector3.up));
+        return horizontal;
     }
 }

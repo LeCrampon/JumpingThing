@@ -33,19 +33,19 @@ Material:
     - _BendRotationRandom: 0.8
     - _BladeCurve: 2.71
     - _BladeForward: 0.1
-    - _BladeHeight: 0.18
+    - _BladeHeight: 0.27
     - _BladeHeightRandom: 0.2
     - _BladeWidth: 0.01
     - _BladeWidthRandom: 0.01
     - _OrthographicCamSize: 1
     - _TessellationUniform: 14.2
-    - _TrampleStrength: 0.14
+    - _TrampleStrength: 0.352
     - _TranslucentGain: 0.62
     - _WindStrength: 1
     m_Colors:
-    - _BottomColor: {r: 0.21810316, g: 0.2264151, b: 0.18668565, a: 1}
+    - _BottomColor: {r: 0.03015965, g: 0.23584908, b: 0.00088997895, a: 1}
     - _Position: {r: 0, g: 0, b: 0, a: 1}
-    - _TopColor: {r: 0.6132076, g: 0.5993528, b: 0.2742079, a: 1}
-    - _Trample: {r: -0.0264853, g: 18.954779, b: -10.656731, a: 0.28}
+    - _TopColor: {r: 0.22042891, g: 0.6792453, b: 0, a: 1}
+    - _Trample: {r: -6.460222, g: 2.9595814, b: -2.2230453, a: 0.28}
     - _WindFrequency: {r: 0.01, g: 0.005, b: 0, a: 0}
   m_BuildTextureStacks: []

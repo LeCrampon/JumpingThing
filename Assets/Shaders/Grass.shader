@@ -62,6 +62,7 @@ Shader "Roystan/Grass"
 		unityShadowCoord4 _ShadowCoord : TEXCOORD1;
 		//normale pour le lighting
 		float3 normal : NORMAL;
+		UNITY_FOG_COORDS(2)
 	};
 
 
@@ -82,7 +83,7 @@ Shader "Roystan/Grass"
 
 		//Normale de local à World pour le lighting
 		o.normal = UnityObjectToWorldNormal(normal);
-
+		UNITY_TRANSFER_FOG(o, o.pos);
 		return o;
 	}
 
@@ -161,6 +162,7 @@ Shader "Roystan/Grass"
 		float3 vNormal = IN[0].normal;
 		float4 vTangent = IN[0].tangent;
 		float3 vBinormal = cross(vNormal, vTangent) * vTangent.w;
+
 
 		//matrice de tangente
 		float3x3 tangentToLocal = float3x3(
@@ -261,6 +263,7 @@ Shader "Roystan/Grass"
 			#pragma target 4.6
 			// pour compiler les variantes du shader
 			#pragma multi_compile_fwdbase
+			#pragma multi_compile_fog
 			#pragma hull hull
 			#pragma domain domain
             
@@ -290,6 +293,8 @@ Shader "Roystan/Grass"
 				//Calcul de la couleur: si on est en bas: bottomColor. puis, degradé selon la hauteur * l'intensité
 				float4 col = lerp(_BottomColor, _TopColor * lightIntensity, i.uv.y) ;
 
+
+				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
             }
             ENDCG

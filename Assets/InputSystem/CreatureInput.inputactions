@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "StartFlying",
                     "type": "Button",
                     "id": "bc3ece4e-902c-4ecd-a947-556251100b16",
                     "expectedControlType": "Button",
@@ -215,18 +215,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Jump",
+                    "action": "StartFlying",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -237,7 +226,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Jump",
+                    "action": "StartFlying",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -248,7 +237,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Jump",
+                    "action": "StartFlying",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -259,7 +248,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Jump",
+                    "action": "StartFlying",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -270,7 +259,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Jump",
+                    "action": "StartFlying",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

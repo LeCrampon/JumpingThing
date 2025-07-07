@@ -31,12 +31,22 @@ public class Foot_IK : MonoBehaviour
 
     public Foot_IK _oppositeLeg;
 
+    [SerializeField]
+    private GameObject _stepSoundPrefab;
+    bool _soundHasPlayed = false;
+
     private void Awake()
     {
         _currentPosition = transform.position;
         _nextPosition = transform.position;
 
         _footGroundCheck = GetComponent<Foot_GroundCheck>();
+    }
+
+    void PlaySteppingSound()
+    {
+        //GameObject go = Instantiate(_stepSoundPrefab, transform.position, Quaternion.identity);
+
     }
 
     public void ManageFootMovement()
@@ -90,12 +100,19 @@ public class Foot_IK : MonoBehaviour
             footPosition.y += Mathf.Sin(_stepLerp * Mathf.PI) * _characterIK._stepHeight;
             _currentPosition = footPosition;
             _stepLerp += Time.deltaTime * _characterIK._stepSpeed;
+            _soundHasPlayed = false;
         }
         else
         {
             _isMoving = false;
             _isFootDown = true;
             _previousPosition = _nextPosition;
+
+            if (!_soundHasPlayed)
+            {
+                PlaySteppingSound();
+                _soundHasPlayed = true;
+            }
         }
         transform.position = _currentPosition;
     }

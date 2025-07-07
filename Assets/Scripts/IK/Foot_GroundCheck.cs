@@ -54,10 +54,11 @@ public class Foot_GroundCheck : MonoBehaviour
 
     public void SetDestination()
     {
-
+        //////DEBUG
         Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position + _raycastTransformDown.forward * _rayCastDistanceFront, Color.green, 1f);
-        Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position - _raycastTransformDown.up * _rayCastDistanceDown, Color.green, 1f);
-        Debug.DrawLine(_raycastTransformBack.position, _raycastTransformBack.position - _raycastTransformBack.forward * _rayCastDistanceBack, Color.green, 1f);
+        Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position - _raycastTransformDown.up * _rayCastDistanceDown, Color.red, 1f);
+        Debug.DrawLine(_raycastTransformBack.position, _raycastTransformBack.position - _raycastTransformBack.forward * _rayCastDistanceBack, Color.blue, 1f);
+        //////DEBUG
 
         RaycastHit hit;
         //CHECK DEVANT

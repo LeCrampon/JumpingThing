@@ -32,7 +32,6 @@ public class GroundChecker : MonoBehaviour
     [SerializeField]
     public NiveauABulles _niveauABulles;
 
-
     public bool CheckGround()
     {
         RaycastHit hit;
@@ -47,7 +46,9 @@ public class GroundChecker : MonoBehaviour
         {
             _isGrounded = false;
         }
-        Debug.DrawLine(_groundedRaycastTransform.position, _groundedRaycastTransform.position + _groundedDirection * _groundedRaycastLength, Color.red);
+        ////DEBUG
+        //Debug.DrawLine(_groundedRaycastTransform.position, _groundedRaycastTransform.position + _groundedDirection * _groundedRaycastLength, Color.red);
+        ////DEBUG
         return _isGrounded;
     }
 
@@ -62,7 +63,6 @@ public class GroundChecker : MonoBehaviour
         _previousGroundedDirection = _groundedDirection;
         _nextGroundedDirection = direction;
     }
-
 
     public void SetNiveauABulles()
     {
