@@ -7,7 +7,7 @@ public class CameraObstacleDetection : MonoBehaviour
     [SerializeField]
     private CharacterMovement _characterMovement;
     [SerializeField]
-    private Transform _cameraTransform;
+    public Transform _cameraTransform;
     [SerializeField]
     private Transform _cameraTargetTransform;
 
@@ -27,6 +27,8 @@ public class CameraObstacleDetection : MonoBehaviour
     private float _cameraWallDistance;
     [SerializeField]
     private float _cameraUpsideDownDistance;
+    [SerializeField]
+    private float _cameraFlightDistance;
     [SerializeField]
     private float _cameraDistance;
     [SerializeField]
@@ -56,7 +58,11 @@ public class CameraObstacleDetection : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_characterMovement._movementType == MovementType.CrawlingMovement || _characterMovement._movementType == MovementType.JumpingMovement || _characterMovement._movementType == MovementType.FlyingMovement)
+        if(_cameraTransform == null || GameStateManager._instance._isInTransition)
+        {
+            return;
+        }
+        if (_characterMovement._movementType == MovementType.CrawlingMovement || _characterMovement._movementType == MovementType.JumpingMovement )
         {
             MoveCameraToMaxDistance();
 
@@ -76,6 +82,11 @@ public class CameraObstacleDetection : MonoBehaviour
                     break;
             }
         }
+        else if(_characterMovement._movementType == MovementType.FlyingMovement)
+        {
+            MoveCameraToMaxDistance();
+            ManageFlyingCamera();
+        }
     }
 
     private float GetCameraDistance(Vector3 castDirection)
@@ -93,6 +104,18 @@ public class CameraObstacleDetection : MonoBehaviour
         
 
         return castDirection.magnitude;
+    }
+
+    private void ManageFlyingCamera()
+    {
+        _cameraDistance = Mathf.Lerp(_cameraDistance, _cameraFlightDistance, _cameraTransitionLerp* Time.deltaTime);
+
+
+        Vector3 castDirection = _cameraTargetTransform.position - transform.position;
+        float distance = GetCameraDistance(castDirection);
+        //Debug.Log("CAMERA DISTANCE " + distance);
+        _currentDistance = Mathf.Lerp(_currentDistance, distance, Time.deltaTime * _smoothFactor);
+        _cameraTransform.position = transform.position + castDirection.normalized * _currentDistance;
     }
 
     private void ManageGroundCamera()

@@ -49,25 +49,41 @@ public class Foot_IK : MonoBehaviour
 
     }
 
-    public void ManageFootMovement()
-    {
-        //if (_characterMovement._isMoving)
-        //{
-        //    SetNewPosition();
-        //}
-        //else
-        //{
-        //    STATIC_SetNewPosition();
-        //}
+    public void ManageCrawlingFootMovement()
+    {  
         STATIC_SetNewPosition();
-        UpdateLegMovement();
-
+        UpdateCrawlingLegMovement();
     }
 
+    public void ManageFlyingFootMovement()
+    {
+        STATIC_SetNewPosition();
+        UpdateFlyingLegMovement();
+    }
+
+    private void UpdateFlyingLegMovement()
+    {
+        if(_nextPosition != _characterMovement._flyingMovement._flyingFeetTarget.position)
+        {
+            UpdateCrawlingLegMovement();
+        }
+        else
+        {
+            transform.position = _nextPosition;
+        }
+            
+    }
 
     //new
     private void STATIC_SetNewPosition()
     {
+        //Debug.Log("_footPosition : " + _footGroundCheck.GetDestination().position);
+        if(_characterMovement._movementType == MovementType.FlyingMovement && _footGroundCheck.GetDestination().position == Vector3.zero)
+        {
+            _nextPosition = _characterMovement._flyingMovement._flyingFeetTarget.position;
+            Debug.Log("Setting to flyingTarget");
+            return;
+        }
         if (Vector3.Distance(_nextPosition, _footGroundCheck.GetDestination().position) > _characterIK._stepSize && !_isMoving)
         {
             _nextPosition = _footGroundCheck.GetDestination().position;
@@ -91,7 +107,7 @@ public class Foot_IK : MonoBehaviour
         _footGroundCheck.DEBUG_UpdateDebugRayCastPosition();
     }
 
-    public void UpdateLegMovement()
+    public void UpdateCrawlingLegMovement()
     {
         if (_stepLerp < 1)
         {

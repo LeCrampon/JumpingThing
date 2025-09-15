@@ -12,12 +12,16 @@ public class CharacterMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    private CrawlingMovement _crawlingMovement;
+    public CrawlingMovement _crawlingMovement;
     [SerializeField]
     public JumpingMovement _jumpingMovement;
     [SerializeField]
-    private FlyingMovement _flyingMovement;
+    public FlyingMovement _flyingMovement;
     public Camera _mainCamera;
+    [SerializeField]
+    public Transform _cameraTarget;
+    [SerializeField]
+    public CameraControls _cameraControls;
 
     [Header("Movement bools")]
     public MovementType _movementType = MovementType.JumpingMovement;
@@ -27,6 +31,8 @@ public class CharacterMovement : MonoBehaviour
     [Header("Audio")]
     [SerializeField]
     private FootStepAudio _footStepAudio;
+    [SerializeField]
+    private FlyingAudio _flyingAudio;
 
     private Vector2 _moveValue;
 
@@ -38,7 +44,11 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        if(_movementType == MovementType.CrawlingMovement)
+        //if (GameStateManager._instance._isInMenu)
+        //{
+        //    return;
+        //}
+        if (_movementType == MovementType.CrawlingMovement)
         {
             _crawlingMovement.HandleCrawlingMovement(_moveValue);
         }
@@ -51,9 +61,8 @@ public class CharacterMovement : MonoBehaviour
             _flyingMovement.HandleFlyingMovement(_moveValue);
         }
 
-            WaitForSwitch();
+        WaitForSwitch();
 
-        DEBUG_ChangeTimeScale();
     }
 
     public void StartFlying()
@@ -62,26 +71,29 @@ public class CharacterMovement : MonoBehaviour
             return;
         if(_movementType == MovementType.CrawlingMovement)
         {
-            _movementType = MovementType.FlyingMovement;
+            SwitchToFlyingMovement();
+           
         }
-        else
-        {
-            _movementType = MovementType.CrawlingMovement;
-        }
+        //else
+        //{
+        //    SwitchToCrawlingMovement();
+        //}
     }
 
     private void WaitForSwitch()
     {
-        if (_justSwitched )
-        {
-            if(_switchTimer >= _switchTime)
-            {
-                _switchTimer = 0;
-                _justSwitched = false;
-            }
-            _switchTimer += Time.deltaTime;
 
+        if (!_justSwitched)
+        {
+            return;
         }
+        if(_switchTimer >= _switchTime)
+        {
+            _switchTimer = 0;
+            _justSwitched = false;
+        }
+        _switchTimer += Time.deltaTime;
+
     }
 
     public void OnMoveStarted()
@@ -115,9 +127,34 @@ public class CharacterMovement : MonoBehaviour
     {
         if (!_justSwitched)
         {
+            if(_movementType == MovementType.FlyingMovement)
+            {
+                _flyingMovement._animator.SetBool("isFlying", false);
+                _flyingAudio.StopFlyingAudio();
+            }
             _movementType = MovementType.CrawlingMovement;
+
+            if (_isMoving)
+            {
+                _footStepAudio.StartFootStepAudio();
+            }
             Debug.Log("SWITCHING TO CRAWLING");
             _justSwitched = true;
+        }
+
+    }
+
+    public void SwitchToFlyingMovement()
+    {
+        if (!_justSwitched)
+        {
+            _movementType = MovementType.FlyingMovement;
+            _flyingMovement._animator.SetBool("isFlying", true);
+            _flyingMovement._isTakingOff = true;
+            Debug.Log("SWITCHING TO Flying");
+            _justSwitched = true;
+            _footStepAudio.StopFootStepAudio();
+            _flyingAudio.StartFlyingAudio();
         }
 
     }
@@ -129,31 +166,11 @@ public class CharacterMovement : MonoBehaviour
             _movementType = MovementType.JumpingMovement;
             Debug.Log("SWITCHING TO JUMPING");
             _justSwitched = true;
+            _footStepAudio.StopFootStepAudio();
         }
     }
 
-    private void DEBUG_ChangeTimeScale()
-    {
-        if (Input.GetKeyDown(KeyCode.KeypadPlus))
-        {
-            Time.timeScale += .1f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.KeypadMinus))
-        {
-            Time.timeScale -= .1f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            Time.timeScale = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            Time.timeScale = 1;
-        }
-    }
+   
 }
 
 public enum MovementType

@@ -44,11 +44,6 @@ public class FootStepAudio : MonoBehaviour
 
     }
 
-    public void PlayJumpAudio()
-    {
-
-    }
-
     public void StartFootStepAudio()
     {
         ResetCoroutine(_fadeCoroutine);

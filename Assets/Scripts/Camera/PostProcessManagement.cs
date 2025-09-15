@@ -27,11 +27,21 @@ public class PostProcessManagement : MonoBehaviour
     private CameraObstacleDetection _camera;
     private float _focusDistance;
 
+    [SerializeField]
+    private PostProcessData _crawlingData, _jumpingData, _flyingData;
+    [SerializeField]
+    private CharacterMovement _crawlingCharacter, _jumpingCharacter, _flyingCharacter;
+
     private void Awake()
     {
         _volume = GetComponent<PostProcessVolume>();
         _volume.profile = Instantiate(_volume.sharedProfile);
         _depthField = _volume.profile.GetSetting<DepthOfField>();
+    }
+
+    public void SetCamera(CameraObstacleDetection camera)
+    {
+        _camera = camera;
     }
 
     private void Update()
@@ -41,19 +51,47 @@ public class PostProcessManagement : MonoBehaviour
             _focusDistance = _camera._currentDistance;
             float lerp = _focusDistance / maxDistance - minDistance;
 
-            float lerpValue = Mathf.Lerp(maxFocal, minFocal, lerp);
+            //float lerpValue = Mathf.Lerp(maxFocal, minFocal, lerp);
             _depthField.focusDistance.value = _focusDistance;
 
-            _depthField.aperture.value = lerpValue;
+            //_depthField.aperture.value = lerpValue;
+            _depthField.aperture.value = 4.5f;
         }
         else
         {
-            _depthField.focusDistance.value = 2;
-            _depthField.aperture.value = 1;
+            _focusDistance = _camera._currentDistance;
+            _depthField.focusDistance.value = 1.9f;
+
+            float lerp = _focusDistance / maxDistance - minDistance;
+
+            //_depthField.aperture.value = Mathf.Lerp(maxFocal, minFocal, lerp);
+            _depthField.aperture.value = 4.5f;
         }
 
-       
+    }
 
+    public void LoadData(PostProcessData data)
+    {
+        minDistance = data.minDistance;
+        maxDistance = data.maxDistance;
+        minFocal = data.minFocal;
+        maxFocal = data.maxFocal;
+    }
 
+    public void SwitchPostProcessValues(CharacterMovement character)
+    {
+        _character = character;
+        if (character == _crawlingCharacter)
+        {
+            LoadData(_crawlingData);
+        }
+        else if (character == _jumpingCharacter)
+        {
+            LoadData(_jumpingData);
+        }
+        else if (character == _flyingCharacter)
+        {
+            LoadData(_flyingData);
+        }
     }
 }

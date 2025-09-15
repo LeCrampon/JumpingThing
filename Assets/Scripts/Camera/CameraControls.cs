@@ -95,8 +95,8 @@ public class CameraControls : MonoBehaviour
         _currentMaxYLimit = _maxGroundYLimit + angle * dot;
 
 
-        float horizontalInput = Mathf.Lerp(0, _lookValue.x, Time.deltaTime * _cameraSmoothingFactor);
-        float verticalInput = Mathf.Lerp(0, -_lookValue.y, Time.deltaTime * _cameraSmoothingFactor);
+        float horizontalInput = Mathf.Lerp(0, _lookValue.x , Time.deltaTime * _cameraSmoothingFactor);
+        float verticalInput = Mathf.Lerp(0, -_lookValue.y , Time.deltaTime * _cameraSmoothingFactor);
 
         _xAngle += verticalInput * _cameraSpeed * Time.deltaTime;
         _yAngle += horizontalInput * _cameraSpeed * Time.deltaTime;
@@ -109,7 +109,13 @@ public class CameraControls : MonoBehaviour
 
     public void SetLookValue(Vector2 lookValue)
     {
-        _lookValue = lookValue;
+        _lookValue = lookValue * GameStateManager._instance.GetMouseSensitivity();
+        //Debug.Log("Look Value "  + _lookValue);
+    }
+
+    public Vector2 GetLookValue()
+    {
+        return _lookValue;
     }
 
     void CrawlingRotateCameraGround()

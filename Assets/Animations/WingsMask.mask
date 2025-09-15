@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WingsMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 0
+  - m_Path: Armature/Abdomen1
+    m_Weight: 0
+  - m_Path: Armature/Abdomen1/Abdomen2
+    m_Weight: 0
+  - m_Path: Armature/Abdomen1/Abdomen2/Abdomen3
+    m_Weight: 0
+  - m_Path: Armature/Abdomen1/Abdomen2/Abdomen3/Abdomen3_end
+    m_Weight: 0
+  - m_Path: Armature/Hips
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_L/BackLeg1_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_L/BackLeg1_L/BackLeg2_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_L/BackLeg1_L/BackLeg2_L/BackLeg2_L_end
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_R/BackLeg1_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_R/BackLeg1_R/BackLeg2_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Hips_R/BackLeg1_R/BackLeg2_R/BackLeg2_R_end
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_L/Leg1_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_L/Leg1_L/Leg2_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_L/Leg1_L/Leg2_L/Leg2_L_end
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_R/Leg1_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_R/Leg1_R/Leg2_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Shoulder_R/Leg1_R/Leg2_R/Leg2_R_end
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_L/Antenna1_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_L/Antenna1_L/Antenna2_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_L/Antenna1_L/Antenna2_L/Antenna3_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_L/Antenna1_L/Antenna2_L/Antenna3_L/Antenna3_L_end
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_R/Antenna1_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_R/Antenna1_R/Antenna2_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_R/Antenna1_R/Antenna2_R/Antenna3_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/AntennaAxis_R/Antenna1_R/Antenna2_R/Antenna3_R/Antenna3_R_end
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/Head2
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/Thorax2/Neck/Head1/Head2/Head2_end
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/WingAxis_L
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/WingAxis_L/Wing_L
+    m_Weight: 1
+  - m_Path: Armature/Hips/Thorax/WingAxis_L/Wing_L/Wing_L_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Thorax/WingAxis_R
+    m_Weight: 0
+  - m_Path: Armature/Hips/Thorax/WingAxis_R/Wing_R
+    m_Weight: 1
+  - m_Path: Armature/Hips/Thorax/WingAxis_R/Wing_R/Wing_R_end
+    m_Weight: 1
+  - m_Path: RiggedWasp
+    m_Weight: 0

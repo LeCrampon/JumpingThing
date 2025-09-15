@@ -11,6 +11,8 @@ public class CharacterIK : MonoBehaviour
     private Foot_IK[] _feetSetFLBR;
     [SerializeField]
     private Foot_IK[] _feetSetFRBL;
+    [SerializeField]
+    private CharacterMovement _characterMovement;
 
 
     [Header("Feet Values")]
@@ -47,8 +49,14 @@ public class CharacterIK : MonoBehaviour
     private void Update()
     {
         DEBUG_MoveInFront();
-
-        TEST_NoCycleLegs();
+        if (_characterMovement._movementType == MovementType.CrawlingMovement || _characterMovement._movementType == MovementType.JumpingMovement)
+        {
+            CrawlingMovementLegs();
+        }
+        else if(_characterMovement._movementType == MovementType.FlyingMovement)
+        {
+            FlyingMovementLegs();
+        }
     
 
     }
@@ -60,7 +68,7 @@ public class CharacterIK : MonoBehaviour
             int count = 0;
             foreach(Foot_IK foot in _feetSetFLBR)
             {
-                foot.ManageFootMovement();
+                foot.ManageCrawlingFootMovement();
                 if (foot._isMoving)
                 {
                     count++;
@@ -74,7 +82,7 @@ public class CharacterIK : MonoBehaviour
             int count = 0;
             foreach (Foot_IK foot in _feetSetFRBL)
             {
-                foot.ManageFootMovement();
+                foot.ManageCrawlingFootMovement();
                 if (foot._isMoving)
                 {
                     count++;
@@ -85,18 +93,32 @@ public class CharacterIK : MonoBehaviour
         }
     }
 
-    private void TEST_NoCycleLegs()
+    private void CrawlingMovementLegs()
     {
         foreach (Foot_IK foot in _feetSetFRBL)
         {
-            foot.ManageFootMovement();
+            foot.ManageCrawlingFootMovement();
         }
 
         foreach (Foot_IK foot in _feetSetFLBR)
         {
-            foot.ManageFootMovement();
+            foot.ManageCrawlingFootMovement();
         }
 
+    }
+
+    private void FlyingMovementLegs()
+    {
+
+        foreach (Foot_IK foot in _feetSetFRBL)
+        {
+            foot.ManageFlyingFootMovement();
+        }
+
+        foreach (Foot_IK foot in _feetSetFLBR)
+        {
+            foot.ManageFlyingFootMovement();
+        }
     }
 
  

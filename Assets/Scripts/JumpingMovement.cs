@@ -36,7 +36,7 @@ public class JumpingMovement : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    private Camera _mainCamera;
+    public Camera _mainCamera;
     [SerializeField]
     private GameObject _playerModel;
     [SerializeField]
@@ -135,9 +135,10 @@ public class JumpingMovement : MonoBehaviour
         Vector3 newRight = Vector3.Cross(normal, newForward).normalized;
         newForward = Vector3.Cross(newRight, normal).normalized;
 
-        Debug.DrawLine(transform.position, transform.position + newForward, Color.blue, 10f);
-        Debug.DrawLine(transform.position, transform.position + newRight, Color.red, 10f);
-        Debug.DrawLine(transform.position, transform.position + normal, Color.green, 10f);
+        //DEBUG
+        //Debug.DrawLine(transform.position, transform.position + newForward, Color.blue, 10f);
+        //Debug.DrawLine(transform.position, transform.position + newRight, Color.red, 10f);
+        //Debug.DrawLine(transform.position, transform.position + normal, Color.green, 10f);
 
         //Debug.Log("New Forward " + newForward);
         //Debug.Log("Normal " + normal);

@@ -62,6 +62,24 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""18990510-64da-4dff-9735-7afe27679399"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchCharacter"",
+                    ""type"": ""Value"",
+                    ""id"": ""30f86145-30b3-429d-becc-dc36f789b33f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -339,6 +357,28 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""action"": ""MoveTest"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c282e691-d355-48bb-a489-2bcc3bd2a3c6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca2051a5-db11-496f-a31e-9e783f92b8ea"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SwitchCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -928,6 +968,8 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_StartFlying = m_Player.FindAction("StartFlying", throwIfNotFound: true);
         m_Player_MoveTest = m_Player.FindAction("MoveTest", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_SwitchCharacter = m_Player.FindAction("SwitchCharacter", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1003,6 +1045,8 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_StartFlying;
     private readonly InputAction m_Player_MoveTest;
+    private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_SwitchCharacter;
     public struct PlayerActions
     {
         private @CreatureInput m_Wrapper;
@@ -1011,6 +1055,8 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @StartFlying => m_Wrapper.m_Player_StartFlying;
         public InputAction @MoveTest => m_Wrapper.m_Player_MoveTest;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @SwitchCharacter => m_Wrapper.m_Player_SwitchCharacter;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1032,6 +1078,12 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 @MoveTest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveTest;
                 @MoveTest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveTest;
                 @MoveTest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveTest;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @SwitchCharacter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchCharacter;
+                @SwitchCharacter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchCharacter;
+                @SwitchCharacter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchCharacter;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1048,6 +1100,12 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 @MoveTest.started += instance.OnMoveTest;
                 @MoveTest.performed += instance.OnMoveTest;
                 @MoveTest.canceled += instance.OnMoveTest;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @SwitchCharacter.started += instance.OnSwitchCharacter;
+                @SwitchCharacter.performed += instance.OnSwitchCharacter;
+                @SwitchCharacter.canceled += instance.OnSwitchCharacter;
             }
         }
     }
@@ -1208,6 +1266,8 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnStartFlying(InputAction.CallbackContext context);
         void OnMoveTest(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnSwitchCharacter(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

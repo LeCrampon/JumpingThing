@@ -13,7 +13,7 @@ public class CrawlingMovement : MonoBehaviour
     [SerializeField]
     private Foot_GroundCheck[] _feetGroundChecks;
     [SerializeField]
-    private Body_IK _bodyIK;
+    public Body_IK _bodyIK;
 
     [Header("Values")]
     [SerializeField]
@@ -67,6 +67,7 @@ public class CrawlingMovement : MonoBehaviour
     {
         if (_characterMovement.CheckMoving())
         {
+            Debug.Log("Character MOVING " + _characterMovement.name);
             transform.rotation = Quaternion.Slerp(transform.rotation, CalculateNewRotation(newUp), Time.deltaTime * _rotationSpeed);
             Vector3 movementOffset = (transform.forward * moveValue.y + transform.right * moveValue.x).normalized;
 
@@ -75,8 +76,12 @@ public class CrawlingMovement : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, heightOffset, Time.deltaTime * _bodyHeightSpeed);
 
             transform.position = Vector3.Lerp(transform.position, transform.position + movementOffset , Time.deltaTime * _movementSpeed);
-            _bodyIK.BobHead();
-            _bodyIK.ThoseHipsDontLie();
+            if (_bodyIK != null)
+            {
+                _bodyIK.BobHead();
+                _bodyIK.ThoseHipsDontLie();
+            }
+
         }
     }
 

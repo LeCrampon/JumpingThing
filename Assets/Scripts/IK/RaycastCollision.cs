@@ -40,9 +40,10 @@ public class RaycastCollision : MonoBehaviour
         Vector3 newPosition = _target.position + newOffset;
 
         Vector3 direction = newPosition - transform.position;
+        Debug.DrawRay(transform.position, direction, Color.yellow, .5f);
         if(Physics.Raycast(transform.position, direction.normalized, out RaycastHit hit, direction.magnitude, _layerMask))
         {
-            Vector3 tempPosition = hit.point - direction.normalized * .02f;
+            Vector3 tempPosition = hit.point - direction.normalized * _colliderRadius;
             if(Vector3.Distance(tempPosition, newPosition) < .1f )
             {
                 newPosition = tempPosition;

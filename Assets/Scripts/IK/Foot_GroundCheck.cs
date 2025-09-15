@@ -38,7 +38,7 @@ public class Foot_GroundCheck : MonoBehaviour
 
     private void Update()
     {
-        SetDestination();
+        SetDestinationByRaycasts();
 
     }
 
@@ -52,13 +52,13 @@ public class Foot_GroundCheck : MonoBehaviour
         return _destination;
     }
 
-    public void SetDestination()
+    public void SetDestinationByRaycasts()
     {
         //////DEBUG
         Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position + _raycastTransformDown.forward * _rayCastDistanceFront, Color.green, 1f);
         Debug.DrawLine(_raycastTransformDown.position, _raycastTransformDown.position - _raycastTransformDown.up * _rayCastDistanceDown, Color.red, 1f);
         Debug.DrawLine(_raycastTransformBack.position, _raycastTransformBack.position - _raycastTransformBack.forward * _rayCastDistanceBack, Color.blue, 1f);
-        //////DEBUG
+        ////DEBUG
 
         RaycastHit hit;
         //CHECK DEVANT
@@ -91,7 +91,14 @@ public class Foot_GroundCheck : MonoBehaviour
             _destination.SetPositionAndNormal(hit.point, hit.normal);
             return;
         }
+
+        _destination = new IK_TargetDestination() ;
      
+    }
+
+    public void SetDestination(Vector3 point, Vector3 normal)
+    {
+        _destination.SetPositionAndNormal(point, normal);
     }
 }
 

@@ -17,6 +17,8 @@ public class Body_IK : MonoBehaviour
     private float _maxRotation;
 
     private Vector3 _startHipPos;
+    private float _startHeadRotation;
+
     [SerializeField]
     private float _hipsStepLerp = 0;
     [SerializeField]
@@ -25,11 +27,15 @@ public class Body_IK : MonoBehaviour
     private float _hipsMovementAmplitude;
 
     [SerializeField]
-    private Camera _camera;
+    public Camera _camera;
+
+    [SerializeField]
+    private bool _abdomenShaking;
 
     private void Awake()
     {
         _startHipPos = _hipsTransform.localPosition;
+        _startHeadRotation = _headTransform.localEulerAngles.x;
     }
 
     public void BobHead()
@@ -38,7 +44,7 @@ public class Body_IK : MonoBehaviour
         {
             _headStepLerp = 0;
         }
-        Quaternion newRotation = Quaternion.Euler(Mathf.Sin(_headStepLerp * Mathf.PI) * _maxRotation, transform.localRotation.y, transform.localRotation.z );
+        Quaternion newRotation = Quaternion.Euler(Mathf.Sin(_headStepLerp * Mathf.PI) * _maxRotation + _startHeadRotation, transform.localRotation.y, transform.localRotation.z );
         _headStepLerp += Time.deltaTime * _headLerpSpeed;
 
 
@@ -56,11 +62,26 @@ public class Body_IK : MonoBehaviour
 
     public void ThoseHipsDontLie()
     {
-        if (_hipsStepLerp >= 1) { 
-            _hipsStepLerp = 0;
+        if (!_abdomenShaking)
+        {
+            if (_hipsStepLerp >= 1)
+            {
+                _hipsStepLerp = 0;
+            }
+            float newY = Mathf.Sin(_hipsStepLerp * Mathf.PI) * _hipsMovementAmplitude;
+            _hipsTransform.localPosition = new Vector3(transform.localPosition.x, _startHipPos.y + newY, transform.localPosition.z);
+            _hipsStepLerp += Time.deltaTime * _hipsLerpSpeed;
         }
-        float newY = Mathf.Sin(_hipsStepLerp * Mathf.PI) * _hipsMovementAmplitude;
-        _hipsTransform.localPosition = new Vector3(transform.localPosition.x, _startHipPos.y + newY, transform.localPosition.z);
-        _hipsStepLerp += Time.deltaTime * _hipsLerpSpeed;
+        else
+        {
+            if (_hipsStepLerp >= 1)
+            {
+                _hipsStepLerp = 0;
+            }
+            Quaternion newRotation = Quaternion.Euler(Mathf.Sin(_hipsStepLerp * Mathf.PI) * _hipsMovementAmplitude, transform.localRotation.y, transform.localRotation.z);
+            _hipsTransform.localRotation = newRotation;
+            _hipsStepLerp += Time.deltaTime * _hipsLerpSpeed;
+        }
+       
     }
 }
