@@ -82,7 +82,12 @@ public class FlyingMovement : MonoBehaviour
         //Debug.Log("nextHitDistance " + _nextHitDistance);
         if(_nextHitDistance <= _hitDistanceToLand)
         {
-            Debug.Log(_lastDirection);
+            foreach(Foot_GroundCheck foot in GetComponent<CrawlingMovement>()._feetGroundChecks)
+            {
+                foot.SetDestinationByRaycasts();
+            }
+            
+            Debug.Log("LAST DIRECTION " + _lastDirection);
             _characterMovement.SwitchToCrawlingMovement();
         }
 
@@ -142,7 +147,7 @@ public class FlyingMovement : MonoBehaviour
         //Debug.Log("HIT DISTANCE" + _nextHitDistance );
         //Debug.Log(" LERPVALUE" + (_raycastDistance - _nextHitDistance) / _raycastDistance);
         transform.rotation = Quaternion.Slerp(finalCamRotation, surfaceRotation, (_raycastDistance - _nextHitDistance) / _raycastDistance);
-
+        Debug.Log("surfaceRotation " + surfaceRotation);
 
 
         //Debug.DrawRay(transform.position, transform.forward, Color.blue, .1f);
@@ -238,6 +243,7 @@ public class FlyingMovement : MonoBehaviour
             }
         }
 
+        //Up
         if (Physics.Raycast(_raycastStart.transform.position, _characterMovement._mainCamera.transform.up, out hit, _raycastDistance, _groundLayer))
         {
             hitDistances.Add(hit.distance);
@@ -255,6 +261,7 @@ public class FlyingMovement : MonoBehaviour
             }
         }
 
+        //back
         if (Physics.Raycast(_raycastStart.transform.position, -_characterMovement._mainCamera.transform.forward, out hit, _raycastDistance, _groundLayer))
         {
             hitDistances.Add(hit.distance);

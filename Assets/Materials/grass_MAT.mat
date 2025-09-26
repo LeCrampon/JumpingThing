@@ -46,6 +46,6 @@ Material:
     - _BottomColor: {r: 0.03015965, g: 0.23584908, b: 0.00088997895, a: 1}
     - _Position: {r: 0, g: 0, b: 0, a: 1}
     - _TopColor: {r: 0.54295325, g: 0.6784314, b: 0, a: 1}
-    - _Trample: {r: -12.275095, g: 3.7189143, b: -9.996828, a: 0.28}
+    - _Trample: {r: -4.0853987, g: 4.08991, b: 6.5160537, a: 0.28}
     - _WindFrequency: {r: 0.01, g: 0.005, b: 0, a: 0}
   m_BuildTextureStacks: []

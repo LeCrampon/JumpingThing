@@ -8,13 +8,17 @@ public class MainMenu : MonoBehaviour
     private GameObject _startMenu;
     [SerializeField]
     private GameObject _characterSelectMenu;
+    [SerializeField]
+    private ContextualUI _contextualMenu;
   
 
     public void StartGame()
     {
         GameStateManager._instance._isInMenu = false;
+        _contextualMenu.StartSession();
         gameObject.SetActive(false);
         GameStateManager._instance.SwitchCurrentActionMap("Player");
+        GameStateManager._instance._started = true;
     }
 
     public void GoToCharacterSelect()

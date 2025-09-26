@@ -35,26 +35,32 @@ public class CameraTransitionHelper : MonoBehaviour
     [SerializeField]
     private float _timer = 5f;
 
+
+
     public void SwitchToNextCharacter(CharacterMovement _nextCharacter)
     {
-        if(_currentlyFollowing == _nextCharacter)
-        {
-            return;
-        }
+
+        //if(_currentlyFollowing == _nextCharacter)
+        //{
+        //    return;
+        //}
         GameStateManager._instance.SwitchCharacterMusic(_nextFollowing, _nextCharacter);
         _previousFollowing = _nextFollowing;
+
+
         _nextFollowing = _nextCharacter;
         GameStateManager._instance.SetCurrentCharacter(_nextCharacter);
+
 
 
     }
 
     private void StartTransition()
     {
-        _timer = 0f;
-        GameStateManager._instance._isInTransition = true;
         //Parent To Next Character
         ParentToNextCharacter();
+        _timer = 0f;
+        GameStateManager._instance._isInTransition = true;
     }
 
     private void ParentToNextCharacter()
@@ -127,23 +133,6 @@ public class CameraTransitionHelper : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Keypad7))
-        //{
-        //    SwitchToNextCharacter(_crawlingBugMovement);
-        //    StartTransition();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Keypad8))
-        //{
-        //    SwitchToNextCharacter( _jumpingBugMovement);
-        //    StartTransition();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Keypad9))
-        //{
-        //    SwitchToNextCharacter( _flyingBugMovement);
-        //    StartTransition();
-        //}
 
         TransitionToNextCharacter();
     }
@@ -168,7 +157,6 @@ public class CameraTransitionHelper : MonoBehaviour
     {
         int previousIndex = ((_characterIndex - 1) % _characterMovements.Length + _characterMovements.Length) % _characterMovements.Length;
         Debug.Log("previous index " + previousIndex);
-        SwitchToNextCharacter(_characterMovements[previousIndex]);
         SwitchToNextCharacter(_characterMovements[previousIndex]);
         StartTransition();
         _characterIndex = previousIndex;

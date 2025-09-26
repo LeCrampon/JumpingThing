@@ -62,7 +62,7 @@ public class CameraObstacleDetection : MonoBehaviour
         {
             return;
         }
-        if (_characterMovement._movementType == MovementType.CrawlingMovement || _characterMovement._movementType == MovementType.JumpingMovement )
+        if (_characterMovement._movementType == MovementType.CrawlingMovement /*|| _characterMovement._movementType == MovementType.JumpingMovement*/ )
         {
             MoveCameraToMaxDistance();
 
@@ -82,7 +82,12 @@ public class CameraObstacleDetection : MonoBehaviour
                     break;
             }
         }
-        else if(_characterMovement._movementType == MovementType.FlyingMovement)
+        else if(_characterMovement._movementType == MovementType.JumpingMovement)
+        {
+            MoveCameraToMaxDistance();
+            ManageGroundCamera();
+        }
+        else if (_characterMovement._movementType == MovementType.FlyingMovement)
         {
             MoveCameraToMaxDistance();
             ManageFlyingCamera();

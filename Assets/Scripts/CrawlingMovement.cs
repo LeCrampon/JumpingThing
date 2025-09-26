@@ -11,7 +11,7 @@ public class CrawlingMovement : MonoBehaviour
     [SerializeField]
     private CharacterMovement _characterMovement;
     [SerializeField]
-    private Foot_GroundCheck[] _feetGroundChecks;
+    public Foot_GroundCheck[] _feetGroundChecks;
     [SerializeField]
     public Body_IK _bodyIK;
 
@@ -40,6 +40,17 @@ public class CrawlingMovement : MonoBehaviour
             _characterMovement.SwitchToJumpingovement();
         }
 
+        //if (_characterMovement._isFlyingCreature)
+        //{
+        //    if (_feetGroundChecks[0].GetDestination().isEmpty() 
+        //        && _feetGroundChecks[1].GetDestination().isEmpty() 
+        //        && _feetGroundChecks[2].GetDestination().isEmpty() 
+        //        && _feetGroundChecks[3].GetDestination().isEmpty())
+        //    {
+        //        _characterMovement.SwitchToFlyingMovement();
+        //    }
+        //}
+
         //Get the average of leg positions and normals
         Vector3 groundedDirection = Vector3.zero;
         Vector3 groundedPosition = Vector3.zero;
@@ -63,11 +74,13 @@ public class CrawlingMovement : MonoBehaviour
         //_bodyIK.RotateHead(_characterMovement._mainCamera.transform.forward, transform.up);
     }
 
+
+
     private void HandleMoving(Vector2 moveValue, Vector3 newUp)
     {
         if (_characterMovement.CheckMoving())
         {
-            Debug.Log("Character MOVING " + _characterMovement.name);
+            //Debug.Log("Character MOVING " + _characterMovement.name);
             transform.rotation = Quaternion.Slerp(transform.rotation, CalculateNewRotation(newUp), Time.deltaTime * _rotationSpeed);
             Vector3 movementOffset = (transform.forward * moveValue.y + transform.right * moveValue.x).normalized;
 

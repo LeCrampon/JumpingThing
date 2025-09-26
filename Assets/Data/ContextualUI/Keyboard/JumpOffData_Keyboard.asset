@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5987fe1c7c20f474c822ef3086c6acab, type: 3}
+  m_Name: JumpOffData_Keyboard
+  m_EditorClassIdentifier: 
+  keyIcon: {fileID: 21300000, guid: 86abddad363c9dd42893303d429b97d2, type: 3}
+  keyText: Jump off

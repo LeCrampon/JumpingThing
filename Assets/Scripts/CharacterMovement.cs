@@ -72,12 +72,21 @@ public class CharacterMovement : MonoBehaviour
         if(_movementType == MovementType.CrawlingMovement)
         {
             SwitchToFlyingMovement();
-           
         }
         //else
         //{
         //    SwitchToCrawlingMovement();
         //}
+    }
+
+    public void JumpOffCliff() {
+        if (!_isJumpingCreature)
+            return;
+        if(_movementType == MovementType.CrawlingMovement)
+        {
+            _jumpingMovement.JumpOff();
+            SwitchToJumpingovement();
+        }
     }
 
     private void WaitForSwitch()

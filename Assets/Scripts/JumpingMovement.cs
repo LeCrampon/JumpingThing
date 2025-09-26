@@ -317,6 +317,84 @@ public class JumpingMovement : MonoBehaviour
         return points;
     }
 
+
+    public void JumpOff()
+    {
+        if (!_isJumping)
+        {
+            Vector3 direction = -_groundChecker._groundedDirection;
+            //Trouver la destination
+            FindJumpOffDestination(direction);
+            SetJumpCurve(_currentHeight);
+
+            if (!IsJumpColliding(10))
+            {
+                //Si pas de collision, on commence le saut
+                SetEndJumpRotation();
+                StartJumping();
+            }
+            else
+            {
+                //Si collision
+                float tempHeight = _jumpHeight;
+
+                //Debug.Log("JUMPING NORMAL " + _endJumpNormal);
+                float collisionAngle = Vector3.Angle(_endJumpNormal, Vector3.up);
+                Debug.Log("JUMPING COLLISION ANGLE = " + collisionAngle);
+                //si surface plus ou moins vers le bas
+                if (collisionAngle > 50)
+                {
+                    //On part vers le mur ====> SwitchToCrawlingMovement
+                    _isGoingToWall = true;
+                    tempHeight = _jumpHeight;
+
+                }
+
+                //On trouve la destination sur le mur.
+                FindJumpDestinationCollision();
+                //On set up la rotation à atteindre
+                SetEndJumpRotationCollision();
+                _currentHeight = tempHeight;
+
+                //on set la courbe
+                SetJumpCurve(_currentHeight);
+                //on set la rotation de départ (on regarde vers là où on va)
+                SetStartJumpRotation();
+                StartJumping();
+            }
+        
+        }
+    }
+
+    private void FindJumpOffDestination(Vector3 direction)
+    {
+        _startJumpPos = transform.position;
+        _startJumpRot = transform.rotation;
+        //on set de base la _endJumpNormal à Vector3.up
+        _endJumpNormal = Vector3.up;
+        Vector3 forward = direction;
+        forward = Vector3.ProjectOnPlane(forward, Vector3.up).normalized;
+
+
+        //Longer jump (* 2.5)
+        Vector3 tempPositition = _startJumpPos + forward * _jumpLength * 2.5f;
+        tempPositition += Vector3.up * _jumpHeight;
+        RaycastHit hit;
+        float yPos = 0;
+        if (Physics.Raycast(tempPositition, Vector3.down, out hit, 10f, _groundMask))
+        {
+            yPos = hit.point.y;
+            _endJumpNormal = hit.normal;
+        }
+        _endJumpPos = new Vector3(tempPositition.x, yPos, tempPositition.z);
+
+        //SetEndJumpRotation();
+
+        _dEndJumpTransform.position = _endJumpPos;
+        _dStartJumpTransform.position = _startJumpPos;
+        _dTempJumpTransform.position = tempPositition;
+    }
+
     public void Jump(Vector2 moveValue)
     {
         if (!_isJumping)

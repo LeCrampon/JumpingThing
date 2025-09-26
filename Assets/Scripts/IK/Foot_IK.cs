@@ -81,7 +81,7 @@ public class Foot_IK : MonoBehaviour
         if(_characterMovement._movementType == MovementType.FlyingMovement && _footGroundCheck.GetDestination().position == Vector3.zero)
         {
             _nextPosition = _characterMovement._flyingMovement._flyingFeetTarget.position;
-            Debug.Log("Setting to flyingTarget");
+            //Debug.Log("Setting to flyingTarget");
             return;
         }
         if (Vector3.Distance(_nextPosition, _footGroundCheck.GetDestination().position) > _characterIK._stepSize && !_isMoving)

@@ -51,11 +51,23 @@ public class CharacterInput : MonoBehaviour
         _playerInput.SwitchCurrentActionMap(actionMap);
     }
 
-    public void OnStartFlying(InputValue value)
+    public void OnJump(InputValue value)
     {
         if(_characterMovement != null)
-            _characterMovement.StartFlying();
-        Debug.Log("StartFlying");
+        {
+            if (_characterMovement._isFlyingCreature)
+            {
+                _characterMovement.StartFlying();
+                Debug.Log("StartFlying");
+            }
+            else if (_characterMovement._isJumpingCreature)
+            {
+                _characterMovement.JumpOffCliff();
+            }
+
+
+        }
+
     }
 
     public void OnMove(InputValue value)
@@ -121,6 +133,22 @@ public class CharacterInput : MonoBehaviour
     {
         GameStateManager._instance.PauseGame();
         ResetAllValues();
+    }
+
+    public void OnSwitchCharacterLeft(InputValue value)
+    {
+        GameStateManager._instance.GetMainMenu().GoLeftCharacter();
+    }
+
+    public void OnSwitchCharacterRight(InputValue value)
+    {
+        GameStateManager._instance.GetMainMenu().GoRightCharacter();
+    }
+
+
+    public Vector2 GetLookValue()
+    {
+        return _lookValue;
     }
 
 }

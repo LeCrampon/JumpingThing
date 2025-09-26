@@ -21,6 +21,7 @@ public class Foot_GroundCheck : MonoBehaviour
     private float _rayCastDistanceBack;
 
     private IK_TargetDestination _destination = new IK_TargetDestination();
+    private IK_TargetDestination _previousDestination = new IK_TargetDestination();
 
     [Header("Directions")]
     [SerializeField]
@@ -64,12 +65,14 @@ public class Foot_GroundCheck : MonoBehaviour
         //CHECK DEVANT
         if (Physics.Raycast(_raycastTransformDown.position, _raycastTransformDown.forward, out hit, _rayCastDistanceFront, _groundMask))
         {
+            _previousDestination = _destination;
             _destination.SetPositionAndNormal(hit.point, hit.normal);
             return;
         }
         //CheckDown
         if (Physics.Raycast(_raycastTransformDown.position, -_raycastTransformDown.up, out hit, _rayCastDistanceDown, _groundMask))
         {
+            _previousDestination = _destination;
             _destination.SetPositionAndNormal(hit.point, hit.normal);
             return;
         }
@@ -77,6 +80,7 @@ public class Foot_GroundCheck : MonoBehaviour
         //Check Backward
         if (Physics.Raycast(_raycastTransformBack.position, -_raycastTransformBack.forward, out hit, _rayCastDistanceBack, _groundMask))
         {
+            _previousDestination = _destination;
             _destination.SetPositionAndNormal(hit.point, hit.normal);
             return;
         }
@@ -88,11 +92,22 @@ public class Foot_GroundCheck : MonoBehaviour
         //Check Inside
         if (Physics.Raycast(_raycastTransformBack.position, insideDirection, out hit, _rayCastDistanceBack, _groundMask))
         {
+            _previousDestination = _destination;
             _destination.SetPositionAndNormal(hit.point, hit.normal);
             return;
         }
 
+        if(GameStateManager._instance.GetCurrentMovementType() != MovementType.FlyingMovement)
+        {
+            _destination = _previousDestination;
+            return;
+        }
+
+
+
         _destination = new IK_TargetDestination() ;
+        //Debug.Log("=====================================");
+        //Debug.Log("DESTINATION " + _destination.position);
      
     }
 
@@ -132,5 +147,10 @@ public class IK_TargetDestination
     {
         position = newPosition;
         normal = newNormal;
+    }
+
+    public bool isEmpty()
+    {
+        return (position == Vector3.zero && normal == Vector3.up) ;
     }
 }

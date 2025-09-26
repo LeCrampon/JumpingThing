@@ -46,7 +46,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""StartFlying"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""bc3ece4e-902c-4ecd-a947-556251100b16"",
                     ""expectedControlType"": ""Button"",
@@ -220,7 +220,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""ScaleVector2(x=25,y=25)"",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -251,11 +251,11 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""143bb1cd-cc10-4eca-a2f0-a3664166fe91"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""StartFlying"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -266,7 +266,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Touch"",
-                    ""action"": ""StartFlying"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -277,7 +277,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
-                    ""action"": ""StartFlying"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -288,7 +288,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""XR"",
-                    ""action"": ""StartFlying"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -299,7 +299,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""StartFlying"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -371,11 +371,33 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9b2c801e-be99-4740-931a-727ab49e9df3"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""ca2051a5-db11-496f-a31e-9e783f92b8ea"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""SwitchCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7044713-ea97-4c73-98a1-2cf0bcaf0d49"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""SwitchCharacter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -472,6 +494,24 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""63479700-a406-4024-b470-401b8c7aa77e"",
                     ""expectedControlType"": ""Quaternion"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchCharacterRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""efca46d6-c135-4e94-8b92-4fd3e4b591e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchCharacterLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2bd5fc95-0e2e-48a3-b178-348fb325d602"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -895,6 +935,28 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""58291815-4ce1-4c3e-a61d-3ede998deecb"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwitchCharacterRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43bf8830-2cbe-40d5-9bd4-7f63483e7270"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""SwitchCharacterLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -966,7 +1028,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_StartFlying = m_Player.FindAction("StartFlying", throwIfNotFound: true);
+        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_MoveTest = m_Player.FindAction("MoveTest", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_SwitchCharacter = m_Player.FindAction("SwitchCharacter", throwIfNotFound: true);
@@ -982,6 +1044,8 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_UI_SwitchCharacterRight = m_UI.FindAction("SwitchCharacterRight", throwIfNotFound: true);
+        m_UI_SwitchCharacterLeft = m_UI.FindAction("SwitchCharacterLeft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1043,7 +1107,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_StartFlying;
+    private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_MoveTest;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_SwitchCharacter;
@@ -1053,7 +1117,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         public PlayerActions(@CreatureInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @StartFlying => m_Wrapper.m_Player_StartFlying;
+        public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @MoveTest => m_Wrapper.m_Player_MoveTest;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @SwitchCharacter => m_Wrapper.m_Player_SwitchCharacter;
@@ -1072,9 +1136,9 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @StartFlying.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStartFlying;
-                @StartFlying.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStartFlying;
-                @StartFlying.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStartFlying;
+                @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @MoveTest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveTest;
                 @MoveTest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveTest;
                 @MoveTest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveTest;
@@ -1094,9 +1158,9 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
-                @StartFlying.started += instance.OnStartFlying;
-                @StartFlying.performed += instance.OnStartFlying;
-                @StartFlying.canceled += instance.OnStartFlying;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
                 @MoveTest.started += instance.OnMoveTest;
                 @MoveTest.performed += instance.OnMoveTest;
                 @MoveTest.canceled += instance.OnMoveTest;
@@ -1124,6 +1188,8 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
+    private readonly InputAction m_UI_SwitchCharacterRight;
+    private readonly InputAction m_UI_SwitchCharacterLeft;
     public struct UIActions
     {
         private @CreatureInput m_Wrapper;
@@ -1138,6 +1204,8 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @SwitchCharacterRight => m_Wrapper.m_UI_SwitchCharacterRight;
+        public InputAction @SwitchCharacterLeft => m_Wrapper.m_UI_SwitchCharacterLeft;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1177,6 +1245,12 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnTrackedDeviceOrientation;
+                @SwitchCharacterRight.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchCharacterRight;
+                @SwitchCharacterRight.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchCharacterRight;
+                @SwitchCharacterRight.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchCharacterRight;
+                @SwitchCharacterLeft.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchCharacterLeft;
+                @SwitchCharacterLeft.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchCharacterLeft;
+                @SwitchCharacterLeft.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSwitchCharacterLeft;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1211,6 +1285,12 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
+                @SwitchCharacterRight.started += instance.OnSwitchCharacterRight;
+                @SwitchCharacterRight.performed += instance.OnSwitchCharacterRight;
+                @SwitchCharacterRight.canceled += instance.OnSwitchCharacterRight;
+                @SwitchCharacterLeft.started += instance.OnSwitchCharacterLeft;
+                @SwitchCharacterLeft.performed += instance.OnSwitchCharacterLeft;
+                @SwitchCharacterLeft.canceled += instance.OnSwitchCharacterLeft;
             }
         }
     }
@@ -1264,7 +1344,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnStartFlying(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
         void OnMoveTest(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnSwitchCharacter(InputAction.CallbackContext context);
@@ -1281,5 +1361,7 @@ public partial class @CreatureInput : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        void OnSwitchCharacterRight(InputAction.CallbackContext context);
+        void OnSwitchCharacterLeft(InputAction.CallbackContext context);
     }
 }

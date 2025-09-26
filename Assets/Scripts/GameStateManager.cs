@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GameStateManager : MonoBehaviour
@@ -25,6 +26,10 @@ public class GameStateManager : MonoBehaviour
     private PostProcessManagement _postProcess;
     [SerializeField]
     private MusicManager _musicManager;
+    [SerializeField]
+    public PlayerInput _input;
+    [SerializeField]
+    private Camera _mainCamera;
 
     [Header("Bools")]
     private bool _paused;
@@ -32,6 +37,8 @@ public class GameStateManager : MonoBehaviour
     public bool _isInMenu = true;
     [SerializeField]
     public bool _isInTransition = false;
+    [SerializeField]
+    public bool _started = false;
 
     [Header("UI Elements")]
     [SerializeField]
@@ -42,6 +49,8 @@ public class GameStateManager : MonoBehaviour
     private GameObject _pauseMenu;
     [SerializeField]
     private GameObject _settingsMenu;
+    [SerializeField]
+    private ContextualUI _contextualUI;
 
     [Header("Settings Sliders")]
     [SerializeField]
@@ -69,9 +78,23 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    public Camera GetMainCamera()
+    {
+        return _mainCamera;
+    }
+
+    public MainMenu GetMainMenu()
+    {
+        return _mainMenu;
+    }
     private void Start()
     {
         SetSliders();
+    }
+
+    public CharacterInput GetCharacterInput()
+    {
+        return _characterInput;
     }
 
     public void OpenSettingsMenu()
@@ -160,6 +183,7 @@ public class GameStateManager : MonoBehaviour
         }
         _paused = true;
         _timeScale = 0f;
+        _contextualUI.PauseSession();
         _pauseMenu.SetActive(true);
         SwitchCurrentActionMap("UI");
         ActivateLowPass();
@@ -174,6 +198,7 @@ public class GameStateManager : MonoBehaviour
 
         _paused = false;
         _timeScale = 1f;
+        _contextualUI.StartSession();
         _pauseMenu.SetActive(false);
         SwitchCurrentActionMap("Player");
         DeActivateLowPass();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RadialMenu : MonoBehaviour
 {
@@ -79,9 +80,23 @@ public class RadialMenu : MonoBehaviour
 
     private float GetMouseAngle()
     {
-        Vector2 mouseDir = GetMousePosition() - GetCenterPosition();
+        Vector2 mouseDir;
+        if(GameStateManager._instance._input.currentControlScheme == "Gamepad")
+        {
+            mouseDir = GetStickPosition();
+        }
+        else
+        {
+            mouseDir = GetMousePosition() - GetCenterPosition();
+        }
+            
         Vector2 upDir = Vector2.up;
 
         return Vector2.SignedAngle(upDir, mouseDir);
+    }
+
+    private Vector2 GetStickPosition()
+    {
+        return GameStateManager._instance.GetCharacterInput().GetLookValue();
     }
 }
