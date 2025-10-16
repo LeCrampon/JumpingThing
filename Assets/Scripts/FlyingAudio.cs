@@ -12,14 +12,14 @@ public class FlyingAudio : MonoBehaviour
     public void StartFlyingAudio()
     {
         ResetCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutine(_audioMixerGroup.audioMixer, "FlyingVolumeParam", .1f, 1f));
+        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutineMixer(_audioMixerGroup.audioMixer, "FlyingVolumeParam", .1f, 1f));
     }
 
     public void StopFlyingAudio()
     {
         ResetCoroutine(_fadeCoroutine);
 
-        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutine(_audioMixerGroup.audioMixer, "FlyingVolumeParam", .1f, 0f));
+        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutineMixer(_audioMixerGroup.audioMixer, "FlyingVolumeParam", .1f, 0f));
     }
 
     public void ResetCoroutine(Coroutine cor)

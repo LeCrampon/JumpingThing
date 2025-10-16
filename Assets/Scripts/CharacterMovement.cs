@@ -41,6 +41,8 @@ public class CharacterMovement : MonoBehaviour
     private float _switchTime = .2f;
     private bool _justSwitched = false;
 
+    public bool _isPoisoned = false;
+
 
     private void Update()
     {
@@ -59,6 +61,23 @@ public class CharacterMovement : MonoBehaviour
         else if(_movementType == MovementType.FlyingMovement)
         {
             _flyingMovement.HandleFlyingMovement(_moveValue);
+        }
+
+
+        //poisoning
+        if (GameStateManager._instance.GetCurrentCharacter() == this)
+        {
+            //Debug.Log("GetCurrentCharacter " + this.gameObject.name);
+            if (_isPoisoned)
+            {
+                GameStateManager._instance.GetPostProcess().StartPoisoning();
+                GameStateManager._instance.SwitchMusicToPoisoned(this);
+            }
+            else
+            {
+                GameStateManager._instance.GetPostProcess().StopPoisoning();
+                GameStateManager._instance.SwitchMusicFromPoisoned(this);
+            }
         }
 
         WaitForSwitch();
@@ -107,7 +126,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void OnMoveStarted()
     {
-        if(_movementType == MovementType.CrawlingMovement)
+        if(_movementType == MovementType.CrawlingMovement && GameStateManager._instance.GetCurrentCharacter() == this)
         {
             _footStepAudio.StartFootStepAudio();
         }
@@ -116,7 +135,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void OnMoveEnded()
     {
-        if (_movementType == MovementType.CrawlingMovement)
+        if (_movementType == MovementType.CrawlingMovement && GameStateManager._instance.GetCurrentCharacter() == this)
         {
             _footStepAudio.StopFootStepAudio();
         }

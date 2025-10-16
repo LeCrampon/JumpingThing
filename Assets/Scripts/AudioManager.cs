@@ -18,7 +18,7 @@ public static class AudioManager {
     //    }
     //}
 
-    public static IEnumerator FadeCoroutine(AudioMixer mixer, string mixerParam, float seconds, float targetVolume )
+    public static IEnumerator FadeCoroutineMixer(AudioMixer mixer, string mixerParam, float seconds, float targetVolume )
     {
         float currentTime = 0f;
         float currentVolume;
@@ -34,6 +34,20 @@ public static class AudioManager {
             float volume = Mathf.Lerp(currentVolume, targetVolume, currentTime / seconds);
             //On reconvertit de linéaire vers Decibel (logarithmique)
             mixer.SetFloat(mixerParam, Mathf.Log10(volume) * 20);
+            yield return null;
+        }
+    }
+
+    public static IEnumerator FadeCoroutine(AudioSource from, float seconds, float targetVolume)
+    {
+        float currentTime = 0f;
+        float currentVolume = from.volume;
+
+        while (currentTime < seconds)
+        {
+            currentTime += Time.deltaTime;
+            float volume = Mathf.Lerp(currentVolume, targetVolume, currentTime / seconds);
+            from.volume = volume;
             yield return null;
         }
     }

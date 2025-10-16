@@ -18,7 +18,7 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 1.5000006
+    value: 1.4999996
   aperture:
     overrideState: 1
     value: 4.5
@@ -64,7 +64,7 @@ MonoBehaviour:
     value: 0
   externalLut:
     overrideState: 1
-    value: {fileID: 11700000, guid: afaf2c82d61197c4d9732ab23b61de5b, type: 3}
+    value: {fileID: 11700000, guid: 3091ea962da53724bb9683509163a490, type: 3}
     defaultState: 1
   tonemapper:
     overrideState: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
     value: 1
   ldrLut:
     overrideState: 1
-    value: {fileID: 2800000, guid: 9a3d651df6dab9c4cb1b8542dfddf8c1, type: 3}
+    value: {fileID: 2800000, guid: 794661a659ec912408c10c073a511d0d, type: 3}
     defaultState: 4
   ldrLutContribution:
     overrideState: 1

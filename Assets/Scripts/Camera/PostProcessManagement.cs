@@ -9,6 +9,7 @@ public class PostProcessManagement : MonoBehaviour
 {
     private PostProcessVolume _volume;
     private DepthOfField _depthField;
+    private ColorGrading _colorGrading;
 
     [SerializeField]
     private CharacterMovement _character;
@@ -31,12 +32,17 @@ public class PostProcessManagement : MonoBehaviour
     private PostProcessData _crawlingData, _jumpingData, _flyingData;
     [SerializeField]
     private CharacterMovement _crawlingCharacter, _jumpingCharacter, _flyingCharacter;
+    private bool _isPoisoned;
+
+    private Coroutine _poisonedCoroutine;
 
     private void Awake()
     {
         _volume = GetComponent<PostProcessVolume>();
         _volume.profile = Instantiate(_volume.sharedProfile);
         _depthField = _volume.profile.GetSetting<DepthOfField>();
+        _colorGrading = _volume.profile.GetSetting<ColorGrading>();
+        _colorGrading.ldrLutContribution.value = 0f;
     }
 
     public void SetCamera(CameraObstacleDetection camera)
@@ -93,5 +99,49 @@ public class PostProcessManagement : MonoBehaviour
         {
             LoadData(_flyingData);
         }
+    }
+
+    public void StartPoisoning()
+    {
+        if (!_isPoisoned)
+        {
+            if(_poisonedCoroutine != null)
+                StopCoroutine(_poisonedCoroutine);
+            _poisonedCoroutine = StartCoroutine(StartPoisoningCoroutine());
+            _isPoisoned = true;
+        }
+
+    }
+
+    private IEnumerator StartPoisoningCoroutine()
+    {
+        while(_colorGrading.ldrLutContribution.value < 1)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            _colorGrading.ldrLutContribution.value += .01f;
+        }
+
+    }
+
+    public void StopPoisoning()
+    {
+        if (_isPoisoned)
+        {
+            if (_poisonedCoroutine != null)
+                StopCoroutine(_poisonedCoroutine);
+            _poisonedCoroutine = StartCoroutine(StopPoisoningCoroutine());
+            _isPoisoned = false;
+        }
+
+    }
+
+    private IEnumerator StopPoisoningCoroutine()
+    {
+        while (_colorGrading.ldrLutContribution.value > 0)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            _colorGrading.ldrLutContribution.value -= .01f;
+        }
+
     }
 }

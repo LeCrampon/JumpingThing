@@ -37,16 +37,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DispTex:
-        m_Texture: {fileID: 2800000, guid: 37228f7409f9d6c4fa157b425ae719d4, type: 3}
-        m_Scale: {x: 30, y: 30}
-        m_Offset: {x: -1.9, y: 0}
+        m_Texture: {fileID: 2800000, guid: f62401a3f14cbdb468b8cc3279882f90, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 2, y: 2}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 0664a2a13a317a647b029a442758d933, type: 3}
-        m_Scale: {x: 15, y: 15}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -54,7 +54,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 2800000, guid: f61c87c910b8345449342bf4a7e3f589, type: 3}
-        m_Scale: {x: 20, y: 20}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -69,7 +69,7 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Displacement: 0
+    - _Displacement: 0.2
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -81,12 +81,12 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Tess: 1
-    - _TesselationMaxDistance: 6.6
+    - _Tess: 10.1
+    - _TesselationMaxDistance: 6
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.8679245, g: 0.7797281, b: 0.6910644, a: 1}
+    - _Color: {r: 0.8679245, g: 0.8239171, b: 0.78113204, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.31399074, g: 0.38537425, b: 0.6603774, a: 0.6117647}
+    - _SpecColor: {r: 0.3407845, g: 0.31639373, b: 0.7075472, a: 0.6117647}
   m_BuildTextureStacks: []

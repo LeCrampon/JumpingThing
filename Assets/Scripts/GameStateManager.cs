@@ -239,6 +239,16 @@ public class GameStateManager : MonoBehaviour
         _musicManager.SwitchCharacterTrack(from, to);
     }
 
+    public void SwitchMusicToPoisoned(CharacterMovement to)
+    {
+        _musicManager.SwitchToPoisonedTrack(to);
+    }
+
+    public void SwitchMusicFromPoisoned(CharacterMovement from)
+    {
+        _musicManager.SwitchFromPoisonedTrack(from);
+    }
+
     public void CloseRadialMenu()
     {
         _cameraTransitionHelper.GoToCharacterByIndex(_radialMenu.GetHighlightedIndex());
@@ -283,5 +293,10 @@ public class GameStateManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public PostProcessManagement GetPostProcess()
+    {
+        return _postProcess;
     }
 }

@@ -13,6 +13,8 @@ public class FootStepAudio : MonoBehaviour
     private AudioMixerGroup _audioMixerGroup;
     private Coroutine _fadeCoroutine;
     private Coroutine _switchCoroutine;
+    [SerializeField]
+    private string _MIXERPARAM;
 
     [SerializeField]
     private AudioSource _grassSource, _defaultSource, _glassSource;
@@ -37,7 +39,7 @@ public class FootStepAudio : MonoBehaviour
 
     private void Update()
     {
-        if(_characterMovement._movementType == MovementType.CrawlingMovement)
+        if(_characterMovement._movementType == MovementType.CrawlingMovement && GameStateManager._instance.GetCurrentCharacter() == _characterMovement)
         {
             CheckGroundType();
         }
@@ -47,14 +49,14 @@ public class FootStepAudio : MonoBehaviour
     public void StartFootStepAudio()
     {
         ResetCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutine(_audioMixerGroup.audioMixer, "VolumeParam", .1f, 1f));
+        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutineMixer(_audioMixerGroup.audioMixer, _MIXERPARAM, .1f, 1f));
     }
 
     public void StopFootStepAudio()
     {
         ResetCoroutine(_fadeCoroutine);
 
-        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutine(_audioMixerGroup.audioMixer, "VolumeParam", .1f, 0f));
+        _fadeCoroutine = StartCoroutine(AudioManager.FadeCoroutineMixer(_audioMixerGroup.audioMixer, _MIXERPARAM, .1f, 0f));
     }
 
     public void CheckGroundType()

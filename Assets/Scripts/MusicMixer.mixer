@@ -33,6 +33,25 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &-7113512471238304098
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sitar
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 6af1b9d83b077c846b7515928e8ca917
+  m_Children: []
+  m_Volume: 0ea4975bc073d0640a4d35ab3964ee4a
+  m_Pitch: 81152917f888c174a8b2dca35ffa5586
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -3200674653670932782}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &-6684769300789709206
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -90,6 +109,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-3200674653670932782
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: e1effd5343cf53e438724dc3c9fccd15
+  m_EffectName: Attenuation
+  m_MixLevel: 94093fde7e885d24595de7f3942e9960
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -116,6 +149,8 @@ AudioMixerController:
     name: MasterVolume
   - guid: d19819848c5c5734a9238a6aee542786
     name: PianoVolume
+  - guid: 0ea4975bc073d0640a4d35ab3964ee4a
+    name: SitarVolume
   - guid: 9c69d6ae1d7a7d24885c02f2b18a2d34
     name: LowPassMixValue
   m_AudioMixerGroupViews:
@@ -125,6 +160,7 @@ AudioMixerController:
     - 887916f0458fbcc4fb6307885f6fbf4b
     - e8dfc80b4384f704eb8973b811808b0d
     - 415449b5f386da74c8291729bda3ed22
+    - 6af1b9d83b077c846b7515928e8ca917
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -142,6 +178,7 @@ AudioMixerGroupController:
   - {fileID: -7854512429397501375}
   - {fileID: -5979355153961547065}
   - {fileID: -5424804394696294125}
+  - {fileID: -7113512471238304098}
   m_Volume: f3ff1e043f1cdc64ab725e44848a0ed4
   m_Pitch: ad9b80eacefa31143b50172ef2361df9
   m_Send: 00000000000000000000000000000000
@@ -176,10 +213,10 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: bd63a2965d797a4459c4d279879dcf1b
   m_FloatValues:
-    d2b315c1016aaf4489b458ee048db77f: 0
+    d2b315c1016aaf4489b458ee048db77f: 7
     f3ff1e043f1cdc64ab725e44848a0ed4: 0.13552584
     d19819848c5c5734a9238a6aee542786: 0
-    dc3695789585e2047b1a8f5528cb1d91: 0
+    dc3695789585e2047b1a8f5528cb1d91: 5.6785126
     d82f39eb78300744b89135675432353f: 912
     1281e46c7324517408bd3fab983441a2: 0
     9c69d6ae1d7a7d24885c02f2b18a2d34: -80
